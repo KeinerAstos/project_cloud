@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ producto.nombre }} - CloudShop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <a href="{{ url_for('index') }}">← Volver</a>
+        <h1>{{ producto.nombre }}</h1>
+    </header>
+    <main>
+        <img class="product_cart" src="{{ url_for('static', filename='img/' + producto.imagen) }}"
+            alt="{{ producto.nombre }}">
+        <p>Precio: ${{ "{:,.0f}".format(producto.precio) }}</p>
+        <a class="btn" href="{{ url_for('agregar', id=producto.id) }}">Agregar al carrito 🛒</a>
+    </main>
+
+</body>
+
+</html>

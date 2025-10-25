@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito - CloudShop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <a href="{{ url_for('index') }}">← Seguir comprando</a>
+        <h1>🛒 Carrito de Compras</h1>
+    </header>
+    <main>
+        {% if carrito %}
+            <ul>
+                {% for item in carrito %}
+                    <li>{{ item.nombre }} — ${{ "{:,.0f}".format(item.precio) }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Total: ${{ "{:,.0f}".format(total) }}</h3>
+            <a class="btn" href="{{ url_for('vaciar') }}">Vaciar carrito</a>
+        {% else %}
+            <p>Tu carrito está vacío 😕</p>
+        {% endif %}
+    </main>
+</body>
+</html>
