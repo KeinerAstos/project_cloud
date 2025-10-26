@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
+
 {% block content %}
-<h2 class="mb-4 text-center">Nuestros Productos</h2>
-<div class="row">
-  {% for p in productos %}
-  <div class="col-md-4">
-    <div class="card mb-4 shadow-sm">
-    <img src="{{ url_for('static', filename='img/' ~ p['imagen']) }}" class="card-img-top" alt="{{ p['nombre'] }}">
-      <div class="card-body text-center">
-        <h5>{{ p['nombre'] }}</h5>
-        <p class="text-muted">${{ p['precio'] }}</p>
-        <a href="{{ url_for('agregar', id=p['id']) }}" class="btn btn-success">Añadir al carrito</a>
-      </div>
+<main>
+  <h2 class="titulo_header">Nuestros Productos</h2>
+
+  <div class="productos">
+    {% for p in productos %}
+    <div class="card">
+      <img src="{{ url_for('static', filename='img/' + p['imagen']) }}" alt="{{ p['nombre'] }}">
+      <h3>{{ p['nombre'] }}</h3>
+      <p>${{ "{:,.0f}".format(p['precio']) }}</p>
+      <a href="{{ url_for('agregar', id=p['id']) }}" class="btn">Añadir al carrito 🛒</a>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
+</main>
 {% endblock %}

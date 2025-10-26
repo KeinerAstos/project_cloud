@@ -1,34 +1,42 @@
 {% extends "layout.html" %}
+
 {% block content %}
-<h2 class="mb-4">🛒 Tu Carrito</h2>
-{% if carrito %}
-<table class="table table-bordered align-middle">
-  <thead class="table-dark">
-    <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-      <th>Precio</th>
-      <th>Subtotal</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
+<main class="carrito">
+  <h2>🛒 Tu Carrito</h2>
+
+  {% if carrito %}
+  <div class="carrito-items">
     {% for item in carrito.values() %}
-    <tr>
-      <td>{{ item.nombre }}</td>
-      <td>{{ item.cantidad }}</td>
-      <td>${{ item.precio }}</td>
-      <td>${{ item.precio * item.cantidad }}</td>
-      <td><a href="{{ url_for('eliminar', id=item.id) }}" class="btn btn-danger btn-sm">Eliminar</a></td>
-    </tr>
+    <div class="carrito-item">
+
+      <!-- Imagen del producto con fallback si no existe -->
+      <img
+        src="{{ url_for('static', filename='img/' ~ item.imagen) if item.imagen else url_for('static', filename='img/default.png') }}"
+        alt="{{ item.nombre }}">
+
+      <div class="carrito-info">
+        <h3>{{ item.nombre }}</h3>
+        <p>Precio: <span>${{ "{:,.0f}".format(item.precio) }}</span></p>
+        <p>Cantidad: <span>{{ item.cantidad }}</span></p>
+        <p>Subtotal: <span>${{ "{:,.0f}".format(item.precio * item.cantidad) }}</span></p>
+      </div>
+
+      <div class="carrito-acciones">
+        <a href="{{ url_for('eliminar', id=item.id) }}" class="btn eliminar">✖ Eliminar</a>
+      </div>
+    </div>
     {% endfor %}
-  </tbody>
-</table>
-<h4>Total: ${{ total }}</h4>
-<form method="post" action="{{ url_for('finalizar') }}">
-  <button type="submit" class="btn btn-primary mt-3">Finalizar compra 💳</button>
-</form>
-{% else %}
-<p>Tu carrito está vacío.</p>
-{% endif %}
+  </div>
+
+  <div class="carrito-total">
+    <h3>Total: <span>${{ "{:,.0f}".format(total) }}</span></h3>
+    <form method="post" action="{{ url_for('finalizar') }}">
+      <button type="submit" class="btn finalizar">Finalizar compra 💳</button>
+    </form>
+  </div>
+
+  {% else %}
+  <p class="vacio">Tu carrito está vacío 🛍️</p>
+  {% endif %}
+</main>
 {% endblock %}

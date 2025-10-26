@@ -3,39 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CloudShop</title>
-  <!-- Bootswatch Lux Theme -->
-  <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css" rel="stylesheet">
-  <!-- Favicon -->
+  <title>KestShop</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand" href="{{ url_for('index') }}">🕒 CloudShop</a>
-      <div>
-        <a class="btn btn-outline-light me-2" href="{{ url_for('carrito') }}">Carrito 🛍️</a>
-        <a class="btn btn-light" href="{{ url_for('historial') }}">Historial 📜</a>
-      </div>
-    </div>
-  </nav>
 
-  <div class="container mt-4">
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+
+  <!-- Tu hoja de estilos -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+  <!-- === HEADER === -->
+  <header>
+    <div class="header-left">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='img/Logo.jpg') }}" alt="Logo Kest Shop">
+      </div>
+      <h1 class="titulo_header">Kest Shop</h1>
+    </div>
+
+    <nav id="nav">
+      <a href="{{ url_for('index') }}">Inicio</a>
+      <a href="{{ url_for('carrito') }}">Carrito 🛍️</a>
+      <a href="{{ url_for('historial') }}">Historial 📜</a>
+    </nav>
+  </header>
+
+  <!-- === CONTENIDO PRINCIPAL === -->
+  <main>
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
-          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-          </div>
+          <div class="alert {{ category }}">{{ message }}</div>
         {% endfor %}
       {% endif %}
     {% endwith %}
-    {% block content %}{% endblock %}
-  </div>
 
-  <footer class="text-center mt-5 py-3 bg-light border-top">
-    <p class="mb-0">© 2025 CloudShop - Proyecto en Computación en la Nube ☁️</p>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- === FOOTER === -->
+  <footer style="text-align:center; padding:20px; background:#000; color:#ccc; border-top:2px solid #d4af37;">
+    <p>© 2025 KestShop - Proyecto en Computación en la Nube ☁️</p>
   </footer>
 </body>
 </html>

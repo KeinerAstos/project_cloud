@@ -1,26 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2 class="mb-4">📜 Historial de Compras</h2>
-{% if compras %}
-<table class="table table-striped">
-  <thead class="table-dark">
-    <tr>
-      <th>ID</th>
-      <th>Fecha</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
+<main class="historial">
+  <h2 class="mb-4 titulo_header">📜 Historial de Compras</h2>
+
+  {% if compras %}
+  <div class="historial-cards">
     {% for c in compras %}
-    <tr>
-      <td>{{ c.id }}</td>
-      <td>{{ c.fecha }}</td>
-      <td>${{ c.total }}</td>
-    </tr>
+    <div class="compra-card">
+      <div class="compra-header">
+        <span class="compra-id">ID: {{ c.id }}</span>
+        <span class="compra-fecha">{{ c.fecha }}</span>
+      </div>
+      <div class="compra-total">
+        Total: <span>${{ "{:,.0f}".format(c.total) }}</span>
+      </div>
+    </div>
     {% endfor %}
-  </tbody>
-</table>
-{% else %}
-<p>No hay compras registradas aún.</p>
-{% endif %}
+  </div>
+  {% else %}
+  <p class="vacio">No hay compras registradas aún.</p>
+  {% endif %}
+</main>
 {% endblock %}
