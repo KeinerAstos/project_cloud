@@ -15,9 +15,16 @@
     <main>
         <img class="product_cart" src="{{ url_for('static', filename='img/' + producto.imagen) }}"
             alt="{{ producto.nombre }}">
-        <p>Precio: ${{ "{:,.0f}".format(producto.precio) }}</p>
+
+        <h2>{{ producto.nombre }}</h2>
+
+        <p class="descripcion">{{ producto.descripcion }}</p>
+
+        <p><strong>Precio:</strong> ${{ "{:,.0f}".format(producto.precio) }}</p>
+
         <a class="btn" href="{{ url_for('agregar', id=producto.id) }}">Agregar al carrito 🛒</a>
     </main>
+
 
 </body>
 
