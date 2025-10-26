@@ -1,0 +1,69 @@
+name: Project Automation
+
+on:
+  issues:
+    types: [opened, assigned]
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  update-project-status:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: read
+      projects: write
+
+    steps:
+      - name: Move issue to "In Progress" when assigned
+        if: github.event_name == 'issues' && github.event.action == 'assigned'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const projectId = process.env.PROJECT_ID;
+            const itemId = context.payload.issue.node_id;
+            await github.graphql(`
+              mutation($projectId:ID!, $itemId:ID!, $statusOptionId:String!) {
+                updateProjectV2ItemFieldValue(input:{
+                  projectId:$projectId,
+                  itemId:$itemId,
+                  fieldId:"STATUS",
+                  value:{ singleSelectOptionId:$statusOptionId }
+                }) { clientMutationId }
+              }
+            `, {
+              projectId,
+              itemId,
+              statusOptionId: process.env.STATUS_IN_PROGRESS
+            });
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          STATUS_IN_PROGRESS: ${{ secrets.STATUS_IN_PROGRESS }}
+
+      - name: Move PR to "Done" when merged
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const projectId = process.env.PROJECT_ID;
+            const itemId = context.payload.pull_request.node_id;
+            await github.graphql(`
+              mutation($projectId:ID!, $itemId:ID!, $statusOptionId:String!) {
+                updateProjectV2ItemFieldValue(input:{
+                  projectId:$projectId,
+                  itemId:$itemId,
+                  fieldId:"STATUS",
+                  value:{ singleSelectOptionId:$statusOptionId }
+                }) { clientMutationId }
+              }
+            `, {
+              projectId,
+              itemId,
+              statusOptionId: process.env.STATUS_DONE
+            });
+        env:
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          STATUS_DONE: ${{ secrets.STATUS_DONE }}
