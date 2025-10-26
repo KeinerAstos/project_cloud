@@ -136,16 +136,14 @@ La aplicación estará disponible en:
 
 ## 🧑‍💻 Integrantes del grupo
 
-**Keiner Astos Gomez**  
-💼 Desarrollador de frontend
-**Ian Cardona Gaviria**  
-💼 Desarrollador de Software y microservicios
-**Sebastian Garces Ramirez**  
-💼 Desarrollo de instancia en Ec2
-**Sebastian Gil Marin**  
-💼 Desarrollador de Base de Datos  
-**Alejandra**  
-💼 Owner 
+| Nombre | Rol |
+|--------|------|
+| **Keiner Astos Gómez** | Desarrollador de Frontend |
+| **Ian Cardona Gaviria** | Desarrollador de Software y Microservicios |
+| **Sebastián Garcés Ramírez** | Implementación de Instancia en EC2 |
+| **Sebastián Gil Marín** | Desarrollador de Base de Datos |
+| **Alejandra** | Owner |
+
 
 ---
 
