@@ -134,11 +134,18 @@ La aplicación estará disponible en:
 
 ---
 
-## 🧑‍💻 Autor
+## 🧑‍💻 Integrantes del grupo
 
-**Keiner Astos**  
-💼 Desarrollador de Software y Bases de Datos  
-📧 keinerastos@gmail.com
+**Keiner Astos Gomez**  
+💼 Desarrollador de frontend
+**Ian Cardona Gaviria**  
+💼 Desarrollador de Software y microservicios
+**Sebastian Garces Ramirez**  
+💼 Desarrollo de instancia en Ec2
+**Sebastian Gil Marin**  
+💼 Desarrollador de Base de Datos  
+**Alejandra**  
+💼 Owner 
 
 ---
 
