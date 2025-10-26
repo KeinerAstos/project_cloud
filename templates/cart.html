@@ -1,27 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Carrito - CloudShop</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-    <header>
-        <a href="{{ url_for('index') }}">← Seguir comprando</a>
-        <h1>🛒 Carrito de Compras</h1>
-    </header>
-    <main>
-        {% if carrito %}
-            <ul>
-                {% for item in carrito %}
-                    <li>{{ item.nombre }} — ${{ "{:,.0f}".format(item.precio) }}</li>
-                {% endfor %}
-            </ul>
-            <h3>Total: ${{ "{:,.0f}".format(total) }}</h3>
-            <a class="btn" href="{{ url_for('vaciar') }}">Vaciar carrito</a>
-        {% else %}
-            <p>Tu carrito está vacío 😕</p>
-        {% endif %}
-    </main>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="mb-4">🛒 Tu Carrito</h2>
+{% if carrito %}
+<table class="table table-bordered align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Subtotal</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in carrito.values() %}
+    <tr>
+      <td>{{ item.nombre }}</td>
+      <td>{{ item.cantidad }}</td>
+      <td>${{ item.precio }}</td>
+      <td>${{ item.precio * item.cantidad }}</td>
+      <td><a href="{{ url_for('eliminar', id=item.id) }}" class="btn btn-danger btn-sm">Eliminar</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<h4>Total: ${{ total }}</h4>
+<form method="post" action="{{ url_for('finalizar') }}">
+  <button type="submit" class="btn btn-primary mt-3">Finalizar compra 💳</button>
+</form>
+{% else %}
+<p>Tu carrito está vacío.</p>
+{% endif %}
+{% endblock %}
